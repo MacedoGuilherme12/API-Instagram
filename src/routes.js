@@ -4,7 +4,7 @@ const UsersControllers = require('./apps/controllers/UsersControllers')
 const routes = new Router()
 
 
-routes.get('/Usuarios', UsersControllers.create )
+routes.post('/user', UsersControllers.create )
 
 
 routes.get('/health', (req, res) =>{

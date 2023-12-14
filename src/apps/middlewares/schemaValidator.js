@@ -8,9 +8,8 @@ const schemaValidator = schema => (req, res, next)=>{
         const messageError = []
 
         for( item of result.errors){
-            messageError.push(item.message)
+            messageError.push(item.message.replace('"', '').replace('"', ''));
         }
-
         return res.status(401).send({
             schemaError : messageError
         })

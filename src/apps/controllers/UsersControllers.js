@@ -3,17 +3,7 @@ const bcryptjs = require('bcryptjs');
 
 class UsersControllers {
     async create(req, res) {
-        const verifyUser = await Users.findOne({
-            where : {
-                email : req.body.email
-            }
-        })
-        console.log("aquiiii:" ,verifyUser)
-        if(verifyUser){
-            return res.status(400).json({ message : "User already exits! "})
-        }
-        console.log(req.body)
-        const verifyUser = await Users.findOne({
+         const verifyUser = await Users.findOne({
             where : {
                 email : req.body.email
             }

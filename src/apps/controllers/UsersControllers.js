@@ -1,5 +1,4 @@
 const Users = require('../models/Users')
-const bcryptjs = require('bcryptjs');
 
 class UsersControllers {
     async create(req, res) {

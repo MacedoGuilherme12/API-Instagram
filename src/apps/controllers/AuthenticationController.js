@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { Op } = require('sequelize')
+const { encrypt } = require('../../utils/crypt');
 const Users = require('../models/Users')
 
 class AuthenticationController{
@@ -12,7 +13,7 @@ class AuthenticationController{
         } else if(user_name){
             whereClause.user_name = user_name
         } else{
-            return res.status(401).json({message : "We need a email or password"})
+            return res.status(401).json({message : "We need a email or username"})
         }
 
 
@@ -23,12 +24,20 @@ class AuthenticationController{
         if(!user){
             return res.status(401).json({ message : 'User not Found'})
         }
+
+
         if(!await user.checkPassword(password)){
             return res.status(401).json({ message : 'Password does not match!!'})
         }
-        const {id, user_name : userName} = user
 
-        const token = jwt.sign({}, process.env.HASH_BCRYPT, {
+
+        const {id, user_name : userName} = user
+        
+        const {iv, content } = encrypt(id)
+
+        const newId = `${iv} : ${content}`
+
+        const token = jwt.sign({newId}, process.env.HASH_BCRYPT, {
             expiresIn : '7d'
         })
 

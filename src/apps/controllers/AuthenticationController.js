@@ -23,10 +23,16 @@ class AuthenticationController{
         if(!user){
             return res.status(401).json({ message : 'User not Found'})
         }
-        if(!user.checkPassword(password)){
+        if(!await user.checkPassword(password)){
             return res.status(401).json({ message : 'Password does not match!!'})
         }
-        return res.status(200).json({ user })
+        const {id, user_name : userName} = user
+
+        const token = jwt.sign({}, process.env.HASH_BCRYPT, {
+            expiresIn : '7d'
+        })
+
+        return res.status(200).json({ user : {id, user_name : userName, token} })
     }
 }
 

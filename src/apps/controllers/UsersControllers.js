@@ -90,6 +90,20 @@ class UsersControllers {
 
         return res.status(200).json({ message : "User deleted"})
     }
+    async userProfile(req, res) {
+        const user = await Users.findOne({
+            attributes : ['id', 'name', "user_name", "email", "gender", "avatar", "bio"],
+            where: {
+                id : req.userId
+            }
+        })
+
+        if(!user){
+            res.status(400).json({ message : "User not found!!"})
+        }
+
+        return res.status(200).json({ user })
+    }
 }
 
 module.exports = new UsersControllers()

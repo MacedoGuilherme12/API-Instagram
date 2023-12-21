@@ -15,9 +15,7 @@ routes.use(AuthenticationMiddleware)
 
 routes.put('/update', UsersControllers.update)
 routes.delete('/delete', UsersControllers.delete)
-routes.get('/health', (req, res) =>{
-    return res.send({messsage: "Connected with sucess"})
+routes.get('/user', UsersControllers.userProfile)
 
-})
 
 module.exports = routes;

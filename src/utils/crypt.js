@@ -5,6 +5,7 @@ const secretKey = process.env.SECRET_CRYPTO;
 const iv = crypto.randomBytes(16);
 
 const encrypt = (text) => {
+  console.log(text)
   const cipher = crypto.createCipheriv(algorithm, secretKey, iv);
 
   const encrypted = Buffer.concat([cipher.update(text.toString()), cipher.final()]);
@@ -16,7 +17,7 @@ const encrypt = (text) => {
 };
 
 const decrypt = (hash) => {
-  const [newIv, text] = hash.split(':');
+  const [newIv, text] = hash.split(':').map(str => str.trim());
 
   const decipher = crypto.createDecipheriv(
     algorithm,
@@ -28,7 +29,7 @@ const decrypt = (hash) => {
     [decipher.update(Buffer.from(text, 'hex')), decipher.final()],
   );
 
-  return decrypted.toString();
+  return decrypted.toString('utf8');
 };
 
 module.exports = {

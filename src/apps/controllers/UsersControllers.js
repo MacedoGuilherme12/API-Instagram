@@ -70,6 +70,40 @@ class UsersControllers {
         })
         return res.status(200).json({ message : "User Update!!"})
     }
+    async delete(req,res){
+
+
+        const userDelete = Users.findOne({
+            where : req.userId,
+        })
+
+
+        if(!userDelete){
+            return res.status(400).json({ message : "User not exists!!"})
+        }
+        console.log(req.userId)
+        await Users.destroy({
+            where : {
+                id : req.userId
+            }
+        })
+
+        return res.status(200).json({ message : "User deleted"})
+    }
+    async userProfile(req, res) {
+        const user = await Users.findOne({
+            attributes : ['id', 'name', "user_name", "email", "gender", "avatar", "bio"],
+            where: {
+                id : req.userId
+            }
+        })
+
+        if(!user){
+            res.status(400).json({ message : "User not found!!"})
+        }
+
+        return res.status(200).json({ user })
+    }
 }
 
 module.exports = new UsersControllers()

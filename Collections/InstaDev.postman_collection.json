@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "7e2d83c1-b763-48c5-9c65-440c542b142d",
+		"name": "InstaDev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29221595"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Guilherme\",\r\n    \"user_name\" : \"Macedo\",\r\n    \"password\" : \"120705\",\r\n    \"email\" : \"Guilherme@Andriely\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwODUyODkxODUyZDU5MjU1OTQwN2ViOWFiZDQ3MzQ2YiA6IDhkIiwiaWF0IjoxNzAzMTg0MzgwLCJleHAiOjE3MDM3ODkxODB9.z_92f70-VGczZ5ac11Sj776tAHbGVsLjhFvafHPJRNs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZjU2NDM5NjMwMjcwYTdjNTdhOTUyZTU0ZmQwZGE5YSA6IDdlIiwiaWF0IjoxNzAzMjAwODc4LCJleHAiOjE3MDM4MDU2Nzh9.BeP7oja9B7feMdHCOibyYYtiQslkz5-A4004xPX41sc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"avatar\" : \"Nengue\",\r\n    \"bio\" : \"Missão maior que a vida, Lealdade maior que a morte\",\r\n    \"gender\" : \"Masculino\",\r\n    \"old_password\" : \"120705\",\r\n    \"new_password\" : \"180306\",\r\n    \"confirm_new_password\" : \"180306\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwNDNlYzQxODI1YmEwZmJkOWZhZTYxZWM3Mzk2ZDdkOCA6IGZhIiwiaWF0IjoxNzAzMTYyODU4LCJleHAiOjE3MDM3Njc2NTh9.610U4peIwSHBnYZehbFwmt2Gxdn0hcxFLt0fHYdBwUE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atuh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"Macedo\",\r\n    \"password\" : \"120705\",\r\n    \"email\" : \"Guilherme@Andriely\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\" : \"Macedo\",\r\n    \"password\" : \"120705\",\r\n    \"email\" : \"Guilherme@Andriely\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

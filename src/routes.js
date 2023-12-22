@@ -12,6 +12,8 @@ const userSchema = require('./apps/schema/create.user.schema.json')
 
 const FileController = require('./apps/controllers/FileController')
 
+const PostController = require('./apps/controllers/PostController')
+const postSchema = require('./apps/schema/create.post.schema.json')
 
 const routes = new Router()
 
@@ -26,6 +28,7 @@ routes.delete('/delete', UsersControllers.delete)
 routes.get('/user', UsersControllers.userProfile)
 
 routes.post('/upload', upload.single('image'), FileController.upload)
+routes.post('/post', schemaValidator(postSchema), PostController.create)
 
 
 module.exports = routes;

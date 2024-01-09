@@ -1,6 +1,6 @@
 class FileController{
     async upload(req, res){
-        const { filename }  = req.file
+        const { filename }  = req.body.file
 
         return res.status(200).json({ url : `'upload/'${filename}`})
     }

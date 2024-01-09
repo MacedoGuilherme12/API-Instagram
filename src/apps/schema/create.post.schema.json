@@ -10,5 +10,5 @@
             "type" : "string"
         } 
     },
-    "required": ["imagem","description"]
+    "required": ["image","description"]
 }

@@ -81,7 +81,6 @@ class UsersControllers {
         if(!userDelete){
             return res.status(400).json({ message : "User not exists!!"})
         }
-        console.log(req.userId)
         await Users.destroy({
             where : {
                 id : req.userId

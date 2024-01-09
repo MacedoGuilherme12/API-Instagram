@@ -65,6 +65,26 @@ class PostController {
         
         return res.status(200).json( {message : "Post Update "})
     }
+    async add_like(req,res){
+        const { id } = req.params
+        const verifyUser = await Posts.findOne({
+            where: {
+                id,
+            }
+        })
+       
+        if(!verifyUser){
+            return res.status(401).json({ message : "Post not exists"})
+        }
+        
+        console.log(id)
+        const postUpdate = await Posts.update({number_value : verifyUser.number_value + 1 }, {where : {id}})
+
+        if(!postUpdate){
+            return res.status(401).json( { message : "Falied Like "})
+        }
+        return res.status(200).json({ message: "Add Like"})
+    }
 
 }
 module.exports = new PostController()

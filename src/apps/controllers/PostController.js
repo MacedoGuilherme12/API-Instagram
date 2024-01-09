@@ -1,3 +1,4 @@
+const { where } = require('sequelize')
 const Posts = require('../models/Posts')
 const Users = require('../models/Users')
 
@@ -40,6 +41,29 @@ class PostController {
         })
         return res.status(200).json({ message  : "Post Deleted"})
 
+    }
+    async update(req,res){
+        const { id } = req.params
+        const verifyUser = await Posts.findOne({
+            where: {
+                id,
+            }
+        })
+       
+        if(!verifyUser){
+            return res.status(401).json({ message : "Post not exists"})
+        }
+       
+        if(verifyUser.author_id != req.userId){
+            return res.status(401).json( { message: "Not permission"})
+        }
+        const postUpdate = await Posts.update(req.body, {where : {id}})
+
+        if(!postUpdate){
+            return res.status(401).json( { message : "Falied update Post"})
+        }
+        
+        return res.status(200).json( {message : "Post Update "})
     }
 
 }

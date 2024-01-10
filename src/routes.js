@@ -29,11 +29,13 @@ routes.get('/user', UsersControllers.userProfile)
 
 routes.post('/upload', upload.single('image'), FileController.upload)
 
-routes.post('/post', schemaValidator(postSchema), PostController.create)
-routes.post('/post/:id' , PostController.delete)
-routes.put('/post/:id' , PostController.update)
-routes.put('/add_post/:id' , PostController.add_like)
-routes.get('/my_post' , PostController.listMyPost)
+routes.post('/posts', schemaValidator(postSchema), PostController.create)
+routes.post('/posts/:id' , PostController.delete)
+routes.put('/posts/:id' , PostController.update)
+routes.get('/posts' , PostController.listMyPost)
+
+routes.put('posts/add_like/:id' , PostController.add_like)
+routes.get('/posts/my-post' , PostController.listMyPost)
 
 
 module.exports = routes;

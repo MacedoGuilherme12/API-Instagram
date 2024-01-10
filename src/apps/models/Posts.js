@@ -2,16 +2,15 @@ const Sequelize = require('sequelize')
 const { Model } = require('sequelize')
 
 class Posts extends Model{
-    static init(){
+    static init(sequelize){
         super.init({
             image : Sequelize.STRING,
-            type: Sequelize.STRING,
             description: Sequelize.STRING,
             number_value: Sequelize.INTEGER,
             author_id: Sequelize.INTEGER
         },
         {
-            Sequelize,
+            sequelize,
         })
     }
     static associate(models){

@@ -14,7 +14,7 @@ class PostController {
         if (!postCreate) {
             return res.status(401).json({ message: "Created Post Falied" })
         }
-        return res.status(200).json({ data: description, image })
+        return res.status(200).json({ message: "Create Posts", data:{Post: description, image  } })
     }
 
 
@@ -25,93 +25,114 @@ class PostController {
                 id,
             }
         })
-       
-        if(!verifyUser){
-            return res.status(401).json({ message : "Post not exists"})
+
+        if (!verifyUser) {
+            return res.status(401).json({ message: "Post not exists" })
         }
-       
-        if(verifyUser.author_id != req.userId){
-            return res.status(401).json( { message: "Not permission"})
+
+        if (verifyUser.author_id != req.userId) {
+            return res.status(401).json({ message: "Not permission" })
         }
-        
+        const { image, description }= verifyUser.dataValues
         await Posts.destroy({
-            where : {
+            where: {
                 id,
             }
         })
-        return res.status(200).json({ message  : "Post Deleted"})
+        return res.status(200).json({ message: "Post Deleted", data : { Post_deleted : id, image, description}})
 
     }
-    async update(req,res){
+    async update(req, res) {
         const { id } = req.params
         const verifyUser = await Posts.findOne({
             where: {
                 id,
             }
         })
-       
-        if(!verifyUser){
-            return res.status(401).json({ message : "Post not exists"})
-        }
-       
-        if(verifyUser.author_id != req.userId){
-            return res.status(401).json( { message: "Not permission"})
-        }
-        const postUpdate = await Posts.update(req.body, {where : {id}})
 
-        if(!postUpdate){
-            return res.status(401).json( { message : "Falied update Post"})
+        if (!verifyUser) {
+            return res.status(401).json({ message: "Post not exists" })
         }
-        
-        return res.status(200).json( {message : "Post Update "})
+
+        if (verifyUser.author_id != req.userId) {
+            return res.status(401).json({ message: "Not permission" })
+        }
+        const postUpdate = await Posts.update(req.body, { where: { id } })
+
+        if (!postUpdate) {
+            return res.status(401).json({ message: "Falied update Post" })
+        }
+
+        return res.status(200).json({ message: "Post Update " })
     }
-    async add_like(req,res){
+    async add_like(req, res) {
         const { id } = req.params
         const verifyUser = await Posts.findOne({
             where: {
                 id,
             }
         })
-       
-        if(!verifyUser){
-            return res.status(401).json({ message : "Post not exists"})
-        }
-        
-        const postUpdate = await Posts.update({number_value : verifyUser.number_value + 1 }, {where : {id}})
 
-        if(!postUpdate){
-            return res.status(401).json( { message : "Falied Like "})
+        if (!verifyUser) {
+            return res.status(401).json({ message: "Post not exists" })
         }
-        return res.status(200).json({ message: "Add Like"})
+
+        const postUpdate = await Posts.update({ number_value: verifyUser.number_value + 1 }, { where: { id } })
+
+        if (!postUpdate) {
+            return res.status(401).json({ message: "Falied Like " })
+        }
+        return res.status(200).json({ message: "Add Like" })
     }
-    async listMyPost(req,res){
+    async listMyPost(req, res) {
         const allPosts = await Posts.findAll({
             order: [
                 ['id', 'DESC'],
-              ],
-            where : {
-                author_id : req.userId
+            ],
+            where: {
+                author_id: req.userId
             }
         })
-    
-        if(!allPosts){
-            return res.status(401).json( { message : "No exists Posts"})
+
+        if (!allPosts) {
+            return res.status(401).json({ message: "No exists Posts" })
         }
         let listPost = []
-        for (let item of allPosts){
+        for (let item of allPosts) {
             listPost.push({
-                id : item.id,
-                image : item.image,
-                description : item.description,
-                number_value : item.number_value
+                id: item.id,
+                image: item.image,
+                description: item.description,
+                number_value: item.number_value
 
             })
         }
         return res.status(200).json({
             data: listPost,
-          });
+        });
     }
 
+    async listAllPosts(req, res) {
+        const allPosts = await Posts.findAll({
+            order: [
+                ['id', 'DESC'],
+            ],
+            attributes: ['id', 'description', 'image', 'number_value'],
+            include: [
+                {
+                    model: Users,
+                    as: 'user',
+                    required: true,
+                    attributes: ['id', 'user_name'],
+                },
+            ],
+        });
 
+        return res.status(200).json({
+            data: allPosts,
+        });
+    }
 }
+
+
 module.exports = new PostController()

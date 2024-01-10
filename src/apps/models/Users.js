@@ -21,7 +21,6 @@ class Users extends Model {
         )
 
         this.addHook('beforeSave', async (user) => {
-            console.log(user.password)
             if (user.password) {
                 user.password_hash = await bcryptjs.hash(user.password, 8)
             }

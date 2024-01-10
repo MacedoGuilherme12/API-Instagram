@@ -28,10 +28,12 @@ routes.delete('/delete', UsersControllers.delete)
 routes.get('/user', UsersControllers.userProfile)
 
 routes.post('/upload', upload.single('image'), FileController.upload)
+
 routes.post('/post', schemaValidator(postSchema), PostController.create)
 routes.post('/post/:id' , PostController.delete)
 routes.put('/post/:id' , PostController.update)
 routes.put('/add_post/:id' , PostController.add_like)
+routes.get('/my_post' , PostController.listMyPost)
 
 
 module.exports = routes;

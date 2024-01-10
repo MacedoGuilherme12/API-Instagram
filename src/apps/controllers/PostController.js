@@ -30,7 +30,7 @@ class PostController {
             return res.status(401).json({ message : "Post not exists"})
         }
        
-        if(ver.author_id != req.userId){
+        if(verifyUser.author_id != req.userId){
             return res.status(401).json( { message: "Not permission"})
         }
         
@@ -77,7 +77,6 @@ class PostController {
             return res.status(401).json({ message : "Post not exists"})
         }
         
-        console.log(id)
         const postUpdate = await Posts.update({number_value : verifyUser.number_value + 1 }, {where : {id}})
 
         if(!postUpdate){
@@ -85,6 +84,34 @@ class PostController {
         }
         return res.status(200).json({ message: "Add Like"})
     }
+    async listMyPost(req,res){
+        const allPosts = await Posts.findAll({
+            order: [
+                ['id', 'DESC'],
+              ],
+            where : {
+                author_id : req.userId
+            }
+        })
+    
+        if(!allPosts){
+            return res.status(401).json( { message : "No exists Posts"})
+        }
+        let listPost = []
+        for (let item of allPosts){
+            listPost.push({
+                id : item.id,
+                image : item.image,
+                description : item.description,
+                number_value : item.number_value
+
+            })
+        }
+        return res.status(200).json({
+            data: listPost,
+          });
+    }
+
 
 }
 module.exports = new PostController()

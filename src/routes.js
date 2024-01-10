@@ -23,16 +23,20 @@ routes.post('/auth', schemaValidator(authSchema), AuthenticationController.Authe
 
 routes.use(AuthenticationMiddleware)
 
-routes.put('/update', UsersControllers.update)
-routes.delete('/delete', UsersControllers.delete)
+routes.put('/user', UsersControllers.update)
+routes.delete('/user', UsersControllers.delete)
 routes.get('/user', UsersControllers.userProfile)
 
+
+
 routes.post('/upload', upload.single('image'), FileController.upload)
+
+
 
 routes.post('/posts', schemaValidator(postSchema), PostController.create)
 routes.post('/posts/:id' , PostController.delete)
 routes.put('/posts/:id' , PostController.update)
-routes.get('/posts' , PostController.listMyPost)
+routes.get('/posts' , PostController.listAllPosts)
 
 routes.put('posts/add_like/:id' , PostController.add_like)
 routes.get('/posts/my-post' , PostController.listMyPost)
